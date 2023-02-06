@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'docs/**/*.md'
   pull_request:
     branches: [main]
     paths:
@@ -16,12 +17,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
+    - uses: actions/cache@v3
+      with:
+        path: |
+          'docs/.stylelintcache'
+          '.eslintcache'
+        key: 'docs-ci-cache'
     - name: Install Docs Packages
       working-directory: docs
       run: npm install
     - name: Stylelint Docs
       working-directory: docs
-      run: npm run lint:scss
+      run: npm run lint:scss -- --cache
     - name: Lint Docs JS Files
       run: node Makefile lintDocsJS
 

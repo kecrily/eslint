@@ -534,7 +534,7 @@ target.lint = function([fix = false] = []) {
      * There is a separate command `target.lintDocsJS` for linting JavaScript files in the `docs` directory.
      */
     echo("Validating JavaScript files");
-    lastReturn = exec(`${ESLINT}${fix ? "--fix" : ""} . --ignore-pattern "docs/**"`);
+    lastReturn = exec(`${ESLINT}${fix ? "--fix" : ""} . --cache --ignore-pattern "docs/**"`);
     if (lastReturn.code !== 0) {
         errors++;
     }
@@ -557,7 +557,7 @@ target.lintDocsJS = function([fix = false] = []) {
     let errors = 0;
 
     echo("Validating JavaScript files in the docs directory");
-    const lastReturn = exec(`${ESLINT}${fix ? "--fix" : ""} docs`);
+    const lastReturn = exec(`${ESLINT}${fix ? "--fix" : ""} docs --cache`);
 
     if (lastReturn.code !== 0) {
         errors++;
